@@ -1,0 +1,26 @@
+name: 'Auto Merge'
+
+on:
+  push:
+  schedule:
+    - cron: '0 */3 * * *'
+
+
+jobs:
+  sync_with_upstream:
+    runs-on: ubuntu-latest
+    name: Sync main with upstream latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        ref: 1.16.x/iris
+
+    - name: Sync from remote
+      run: |
+        git config --global user.name "plusls"
+        git config --global user.email "pluslslsulp@gmail.com"
+        git pull --allow-unrelated-histories https://github.com/IrisShaders/sodium-fabric.git
+        echo "pull success!"
+        git push
