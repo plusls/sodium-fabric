@@ -3,7 +3,7 @@ name: 'Auto Merge'
 on:
   push:
   schedule:
-    - cron: '0 */3 * * *'
+    - cron: '0 * * * *'
 
 
 jobs:
@@ -21,6 +21,7 @@ jobs:
       run: |
         git config --global user.name "plusls"
         git config --global user.email "pluslslsulp@gmail.com"
-        git pull --allow-unrelated-histories https://github.com/IrisShaders/sodium-fabric.git
+        git fetch --unshallow
+        git pull --no-edit https://github.com/IrisShaders/sodium-fabric.git
         echo "pull success!"
         git push
